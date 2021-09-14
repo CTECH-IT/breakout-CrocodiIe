@@ -27,7 +27,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#9775DD";
     ctx.fill();
     ctx.closePath();
 }
@@ -50,6 +50,22 @@ function draw() {
     if(y > canvas.height - ballRadius || y + dy < ballRadius) {
         dy = -dy;
     }
+
+    //paddle controls
+    if(rightPressed) {
+        paddleX += 7;
+        if (paddleX + paddleWidth > canvas.width){
+            paddleX = canvas.width - paddleWidth;
+        }
+    }
+    else if(leftPressed) {
+        paddleX -= 7;
+        if (paddleX < 0){
+            paddleX = 0;
+        }
+    }
+
+    drawPaddle();
 
 }
 
