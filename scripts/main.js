@@ -7,7 +7,7 @@ let y = canvas.height-30;
 let dx = 2;
 let dy = -2;
 
-let ballRadius = 10;
+let ballRadius = 15;
 
 let paddleHeight = 10;
 let paddleWidth= 75;
@@ -47,8 +47,17 @@ function draw() {
     if (x > canvas.width - ballRadius || x + dx <ballRadius) {
         dx = -dx;
     }
-    if(y > canvas.height - ballRadius || y + dy < ballRadius) {
+
+    if (y + dy < ballRadius) { //ceiling chec
         dy = -dy;
+    } else if (y + dy > canvas.height-ballRadius) {//floor chec
+        if(x > paddleX && x < paddleX + paddleWidth) { //paddlehit
+            dy = -dy;
+        } else { // it hits the floor!!1!
+            alert("GAME OVER LMAO LOSER");
+            document.location.reload();
+            clearInterval(interval); //needed 4 browser to end game
+        }    
     }
 
     //paddle controls
@@ -90,4 +99,4 @@ function keyUpHandler(e) {
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-setInterval(draw, 10);
+let interval = setInterval(draw, 10);
