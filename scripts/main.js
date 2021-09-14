@@ -50,7 +50,7 @@ function drawPaddle() {
 }
 
 function drawBricks() {
-    for(let c=0: c<brickColumnCount; c++) {
+    for(let c=0; c<brickColumnCount; c++) {
         for(let r=0; r<brickRowCount; r++) {
             let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
             let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
@@ -69,6 +69,9 @@ function draw() {
     //clearing canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
+    //draw the bricks
+    drawBricks();
+
     //drawing the ball
     drawBall();
 
