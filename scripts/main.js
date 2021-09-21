@@ -25,7 +25,7 @@ let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
 
 let score = 0;
-
+let Lives = 1;
 //set up 2d array 4 bricks
 let bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
@@ -97,6 +97,7 @@ function draw() {
             alert("GAME OVER LMAO LOSER");
             document.location.reload();
             clearInterval(interval); //needed 4 browser to end game
+            Lives--;
         }
     }
 
@@ -121,6 +122,8 @@ function draw() {
 
     //This will show what the user's score is
     drawScore();
+
+    drawLives();
 
 }
 
@@ -159,6 +162,12 @@ function drawScore() {
     ctx.fillText("Score:" + score, 8, 20);
 }
 
+function drawLives() {
+    ctx.font = "16px Roboto";
+    ctx.fillstyle = "#7851DD";
+    ctx.fillText("Lives:" + lives, 8, 30);
+}
+
 function keyUpHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = false;
@@ -168,7 +177,16 @@ function keyUpHandler(e) {
     }
 }
 
+function mouseMoveHandler(e) {
+    let relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth / 2;
+    }
+}
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
 
 let interval = setInterval(draw, 10);
